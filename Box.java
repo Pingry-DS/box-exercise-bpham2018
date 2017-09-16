@@ -1,63 +1,106 @@
-public class Box {
+public class Box <T> 
+{
 
   private T contents;
   private boolean isFull;
 
   // Make a new empty box
-  public Box(){
+  public Box()
+  {
+	  super();
+	  this.isFull = false;
   }
 
   // Make a new box pre-filled with contents
-  public Box(){
+  public Box(T c)
+  {
+	  super();
+	  this.contents = c;
+	  this.isFull = true;
   }
 
   /**
    * Check the contents of the box
+   * @return T contents of the box
    */
-  public getContents(){
+  public T getContents()
+  {
+	  return contents;
   }
 
   /**
    * Tell whether the box is full or not
+   * @return boolean whether or not the box is full
    */
-  public isFull(){
+  public boolean isFull()
+  {
+	  return isFull;
   }
 
   /**
    * Empty out the box, and give back hatever was in it
+   * @return T whatever was in the box
    */
-  public empty(){
+  public T empty()
+  {
+	  T holder = contents;
+	  contents = null;
+	  isFull = false;
+	  return holder;
   }
-
-  public String toString(){
+  
+  /**
+  * Returns string representation of what is in box
+  * @return the contents of the box if there are any or "nothing" if contents is null
+  */
+  public String toString()
+  {
+	  if(isFull)
+	  {
+		  return contents.toString();
+	  }
+	  else
+	  {
+		  return "nothing";
+	  }
   }
+  
+  public boolean add(T c)
+  {
+	  if(isFull)
+	  {
+		  return false;
+	  }
+	  else
+	  {
+		  this.contents = c;
+		  this.isFull = true;
+		  return true;
+	  }
+  }
+	  
 
-  public static void main(String[] args){
+  public static void main(String[] args)
+  {
 
     // Make two boxes
     Box<String> stringBox = new Box<String>();
-    //TODO start the second box with contents inside
-    Box<Integer> intBox   = new Box<Integer>();
+    Box<Integer> intBox   = new Box<Integer>(49);
 
     // View contents (via toString method)
     System.out.println("The boxes contain: " + stringBox + ", " + intBox);
 
-    //TODO Add something to a box
-
-
+	stringBox.add("Tootsie Roll");
 
     // View contents (via toString method)
     System.out.println("The boxes contain: " + stringBox + ", " + intBox);
 
     //TODO Test your peek method
 
-
     // View contents (via toString method)
     System.out.println("The boxes contain: " + stringBox + ", " + intBox);
 
-    //TODO Empty a boxes
-
-
+	stringBox.empty();
 
     // View contents (via toString method)
     System.out.println("The boxes contain: " + stringBox + ", " + intBox);
